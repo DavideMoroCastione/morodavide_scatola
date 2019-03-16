@@ -1,3 +1,4 @@
+#include <LiquidCrystal.h>
 
 #define ButtonAcceso 5
 #define ButtonLed 6
@@ -28,10 +29,11 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  valore1 = digitalRead(ButtonAcceso)
+  valore1 = digitalRead(ButtonAcceso);
   if(valore1 == HIGH)
   {
-    Accendi()
+    Accendi(ButtonLed, Led, "Led"); 
+    Accendi(ButtonBuzzer, Buzzer, "Buzzer"); 
   }
   else
   {
@@ -41,17 +43,15 @@ void loop() {
 
 }
 
-void Accendi() {
-  
-  
+void Accendi(int btn, int thing, String frase) {
+
+  while(digitalRead(btn) == LOW){}
   delay(random(1000, 10000));
-  digitalWrite(Led, HIGH);
-  digitalRead(ButtonLed);
-  digitalWrite(Led, LOW);
-  delay(random(1000, 10000));
-  digitalWrite(Buzzer, HIGH);
-  digitalRead(ButtonBuzzer);
-  digitalWrite(Buzzer, LOW);
+  digitalWrite(thing, HIGH);
+  while(digitalRead(btn) == HIGH){}
+  digitalWrite(thing, LOW);
+  frase = digitalRead(btn);
+  
 }
 
 
