@@ -20,31 +20,38 @@ void setup() {
   pinMode(Led, OUTPUT);
   pinMode(Buzzer, OUTPUT);
 
-  Serial.begin(9600);
-  AccendiLed();
-  AccendiBuzzer();
+  
+  
 
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
+  valore1 = digitalRead(ButtonAcceso)
+  if(valore1 == HIGH)
+  {
+    Accendi()
+  }
+  else
+  {
+    digitalWrite(Led, LOW);
+    digitalWrite(Buzzer, LOW);
+  }
+
 }
 
-void AccendiLed() {
+void Accendi() {
   
-  valore1 = digitalRead(ButtonAcceso);
+  
   delay(random(1000, 10000));
   digitalWrite(Led, HIGH);
-}
-void AccendiBuzzer() {
-  
-  valore2 = digitalRead(ButtonLed);
+  digitalRead(ButtonLed);
   digitalWrite(Led, LOW);
   delay(random(1000, 10000));
   digitalWrite(Buzzer, HIGH);
-  valore3 = digitalRead(ButtonBuzzer);
+  digitalRead(ButtonBuzzer);
   digitalWrite(Buzzer, LOW);
-  
 }
+
 
