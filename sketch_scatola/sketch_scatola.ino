@@ -6,7 +6,8 @@
 #define Led 10
 #define Buzzer 13
 int valoreTempo;  // variabile del delay del tempo
-LiquidCrystal lcd(12, 11, 6, 5, 4, 3);
+LiquidCrystal lcd(12, 11, 6, 5, 4, 3); //lcd
+int tempo;
 
 
 void setup() {
@@ -19,8 +20,7 @@ void setup() {
   pinMode(ButtonBuzzer, INPUT);
   pinMode(Led, OUTPUT);
   pinMode(Buzzer, OUTPUT);
-
-  lcd.begin(20, 2);
+  lcd.begin(16, 2);
 
 }
 
@@ -28,26 +28,24 @@ void loop() {
   // put your main code here, to run repeatedly:
  
   while(digitalRead(ButtonAcceso) == HIGH){}
-  calcolaRiflessi(ButtonLed, Led ); 
+  lcd.clear();
+  calcolaRiflessi(ButtonLed, Led); 
   calcolaRiflessi(ButtonBuzzer, Buzzer);
-  lcd.setCursor(0, 0):
-  lcd.print("Led" + 
-  lcd.setCursor(0, 1),
-  lcd.print("Buzzer" +
+  lcd.setCursor(0, 0);
+  lcd.print(tempo);
+  lcd.setCursor(0, 1);
+  lcd.print(tempo);
   
 }
 
 void calcolaRiflessi(int btn, int thing) {
 
   while(digitalRead(btn) == LOW){}
-  delay(valoreTempo);
+  delay(valoreTempo + millis());
   digitalWrite(thing, HIGH);
   while(digitalRead(btn) == HIGH){}
   tempo = digitalRead(btn);
   digitalWrite(thing, LOW);
-  
-  
-  
   
 }
 
