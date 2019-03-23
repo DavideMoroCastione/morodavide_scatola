@@ -8,6 +8,7 @@
 LiquidCrystal lcd(12, 11, 6, 5, 4, 3); //lcd
 bool fine;
 bool terminato;
+int inizio;
 
 void setup() {
   // put your setup code here, to run once:
@@ -32,6 +33,7 @@ void loop() {
       else if(digitalRead(buttonAcceso) == HIGH)
       {
         fine = true;
+        inizio = millis();
       }
     }
     lcd.clear();
@@ -54,7 +56,7 @@ void accensione(int btn, int thing) {
       terminato = true;
     }
   }
-  lcd.print(millis() / 1000);
+  lcd.print((millis() - inizio) / 1000);
   digitalWrite(thing, LOW);
  
 }
