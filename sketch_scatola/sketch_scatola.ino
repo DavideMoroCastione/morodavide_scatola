@@ -5,6 +5,7 @@
 #define buttonBuzzer 9  // bottone spegnimento del buzzer
 #define led 10
 #define buzzer 13
+
 LiquidCrystal lcd(12, 11, 6, 5, 4, 3); //lcd
 bool finito;
 bool terminato;
@@ -32,11 +33,11 @@ void loop() {
     while(!finito) 
     {
       if(digitalRead(buttonAcceso) == LOW){}
-      else if(digitalRead(buttonAcceso) == HIGH)
-      {
-        finito = true;
-        
-      }
+      else 
+        if(digitalRead(buttonAcceso) == HIGH)
+        {
+          finito = true;
+        }
     }
     lcd.clear();
     lcd.setCursor(0, 1);
@@ -50,7 +51,7 @@ void loop() {
 
 void accensione(int btn, int thing,int tempo) {
 
-  delay(random(1000, 10000));
+  delay(random(1000, 5000));
   digitalWrite(thing, HIGH);
   inizio = millis();
   while(!terminato) 
@@ -58,10 +59,11 @@ void accensione(int btn, int thing,int tempo) {
     if(digitalRead(btn) == LOW) {} 
     else if(digitalRead(btn) == HIGH)
     {
+      tempo = ((millis() - inizio) / 1000);
       terminato = true;
     }
   }
-  tempo = ((millis() - inizio) / 1000);
+  
   lcd.print(tempo);
   digitalWrite(thing, LOW);
   inizio = 0;
@@ -71,7 +73,7 @@ void accensione(int btn, int thing,int tempo) {
 
 void risultato() {
   
-  if(fine1 < 1000 && fine2 < 1000)
+  if(fine1 < 300 && fine2 < 300)
   {
     lcd.clear();
     lcd.print("Sei forte");
