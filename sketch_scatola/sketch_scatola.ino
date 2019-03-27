@@ -9,7 +9,8 @@ LiquidCrystal lcd(12, 11, 6, 5, 4, 3); //lcd
 bool finito;
 bool terminato;
 int inizio;
-int fine;
+int fine1;
+int fine2;
 
 void setup() {
   // put your setup code here, to run once:
@@ -34,23 +35,24 @@ void loop() {
       else if(digitalRead(buttonAcceso) == HIGH)
       {
         finito = true;
-        inizio = millis();
+        
       }
     }
     lcd.clear();
     lcd.setCursor(0, 1);
-    accensione(buttonLed, led); 
+    accensione(buttonLed, led, fine1); 
     lcd.setCursor(0, 2);
-    accensione(buttonBuzzer, buzzer);
+    accensione(buttonBuzzer, buzzer, fine2);
     delay(500);
     risultato();
   
 }
 
-void accensione(int btn, int thing) {
+void accensione(int btn, int thing,int tempo) {
 
   delay(random(1000, 10000));
   digitalWrite(thing, HIGH);
+  inizio = millis();
   while(!terminato) 
   {
     if(digitalRead(btn) == LOW) {} 
@@ -59,15 +61,17 @@ void accensione(int btn, int thing) {
       terminato = true;
     }
   }
-  fine = ((millis() - inizio) / 1000);
-  lcd.print(fine);
+  tempo = ((millis() - inizio) / 1000);
+  lcd.print(tempo);
   digitalWrite(thing, LOW);
+  inizio = 0;
+  
  
 }
 
 void risultato() {
   
-  if(fine < 1000)
+  if(fine1 < 1000 && fine2 < 1000)
   {
     lcd.clear();
     lcd.print("Sei forte");
