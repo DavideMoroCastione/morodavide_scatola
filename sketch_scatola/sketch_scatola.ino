@@ -46,6 +46,7 @@ void loop() {
     accensione(buttonBuzzer, buzzer, fine2);
     delay(500);
     risultato();
+    finito = false;
   
 }
 
@@ -67,6 +68,7 @@ void accensione(int btn, int thing,int tempo) {
   lcd.print(tempo);
   digitalWrite(thing, LOW);
   inizio = 0;
+  terminato = false;
   
  
 }
@@ -84,5 +86,3 @@ void risultato() {
     lcd.print("sei scarso");
   }
 }
-
-
