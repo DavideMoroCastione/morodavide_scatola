@@ -6,9 +6,10 @@
 #define led 10
 #define buzzer 13
 LiquidCrystal lcd(12, 11, 6, 5, 4, 3); //lcd
-bool fine;
+bool finito;
 bool terminato;
 int inizio;
+int fine;
 
 void setup() {
   // put your setup code here, to run once:
@@ -19,7 +20,7 @@ void setup() {
   pinMode(led, OUTPUT);
   pinMode(buzzer, OUTPUT);
   lcd.begin(16, 2);
-  fine = false;
+  finito = false;
   terminato = false;
 
 }
@@ -27,12 +28,12 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-    while(!fine) 
+    while(!finito) 
     {
       if(digitalRead(buttonAcceso) == LOW){}
       else if(digitalRead(buttonAcceso) == HIGH)
       {
-        fine = true;
+        finito = true;
         inizio = millis();
       }
     }
@@ -41,6 +42,8 @@ void loop() {
     accensione(buttonLed, led); 
     lcd.setCursor(0, 2);
     accensione(buttonBuzzer, buzzer);
+    delay(500);
+    risultato();
   
 }
 
@@ -56,9 +59,24 @@ void accensione(int btn, int thing) {
       terminato = true;
     }
   }
-  lcd.print((millis() - inizio) / 1000);
+  fine = ((millis() - inizio) / 1000);
+  lcd.print(fine);
   digitalWrite(thing, LOW);
  
+}
+
+void risultato() {
+  
+  if(fine < 1000)
+  {
+    lcd.clear();
+    lcd.print("Sei forte");
+  }
+  else
+  {
+    lcd.clear();
+    lcd.print("sei scarso");
+  }
 }
 
 
