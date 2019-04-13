@@ -40,9 +40,9 @@ void loop() {
         }
     }
     lcd.clear();
-    lcd.setCursor(0, 1);
+    lcd.setCursor(0, 0);
     accensione(buttonLed, led, fine1); 
-    lcd.setCursor(0, 2);
+    lcd.setCursor(0, 1);
     accensione(buttonBuzzer, buzzer, fine2);
     delay(500);
     risultato();
